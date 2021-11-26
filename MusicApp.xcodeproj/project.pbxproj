@@ -18,6 +18,7 @@
 		8765103C2749FF1200107F45 /* MusicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8765103B2749FF1200107F45 /* MusicViewController.swift */; };
 		8765103E274A047300107F45 /* ArtistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8765103D274A047300107F45 /* ArtistViewController.swift */; };
 		87651044274A127900107F45 /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87651043274A127900107F45 /* Song.swift */; };
+		87834B5A274E019600480716 /* Artist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87834B59274E019600480716 /* Artist.swift */; };
 		87873384274B750100035C0A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87873383274B750100035C0A /* Constants.swift */; };
 /* End PBXBuildFile section */
 
@@ -37,6 +38,7 @@
 		8765103B2749FF1200107F45 /* MusicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicViewController.swift; sourceTree = "<group>"; };
 		8765103D274A047300107F45 /* ArtistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistViewController.swift; sourceTree = "<group>"; };
 		87651043274A127900107F45 /* Song.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
+		87834B59274E019600480716 /* Artist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Artist.swift; sourceTree = "<group>"; };
 		87873383274B750100035C0A /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -90,6 +92,7 @@
 				8765103D274A047300107F45 /* ArtistViewController.swift */,
 				8765103B2749FF1200107F45 /* MusicViewController.swift */,
 				87651043274A127900107F45 /* Song.swift */,
+				87834B59274E019600480716 /* Artist.swift */,
 				8765102A2749BA1B00107F45 /* Assets.xcassets */,
 				8765102C2749BA1B00107F45 /* LaunchScreen.storyboard */,
 				8765102F2749BA1B00107F45 /* Info.plist */,
@@ -228,6 +231,7 @@
 				876510222749BA1900107F45 /* AppDelegate.swift in Sources */,
 				87873384274B750100035C0A /* Constants.swift in Sources */,
 				876510242749BA1900107F45 /* SceneDelegate.swift in Sources */,
+				87834B5A274E019600480716 /* Artist.swift in Sources */,
 				8765103E274A047300107F45 /* ArtistViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

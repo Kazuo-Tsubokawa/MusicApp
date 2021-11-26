@@ -22,6 +22,16 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let keychain = Keychain(service: consts.service)
+        if keychain["access_token"] != nil {
+            keychain["access_token"] = nil //keychainに保存されたtokenを削除
+        }
+    }
+    
+    func transitionToMusicViewC() {
+        let MusicViewContorller = self.storyboard?.instantiateViewController(withIdentifier: "MusicViewC") as! UIViewController
+        MusicViewContorller.modalPresentationStyle = .fullScreen
+        present(MusicViewContorller, animated: true, completion: nil)
     }
     
     //取得したcodeを使ってアクセストークンを発行
@@ -49,6 +59,7 @@ class ViewController: UIViewController {
                 self.token = accessToken
                 let keychain = Keychain(service: self.consts.service) //このアプリ用のキーチェーンを生成
                 keychain["access_token"] = accessToken //キーを設定して保存
+                self.transitionToMusicViewC() //画面遷移
             case .failure(let err):
                 print(err.localizedDescription)
             }
@@ -60,7 +71,7 @@ class ViewController: UIViewController {
         let keychain = Keychain(service: consts.service)
         if keychain["access_token"] != nil {
             token = keychain["access_token"]!
-            print(token)
+            transitionToMusicViewC() //画面遷移
         } else {
             self.getAccessToken()
         }
