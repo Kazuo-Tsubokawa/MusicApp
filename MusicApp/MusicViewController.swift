@@ -26,6 +26,9 @@ class MusicViewController: UIViewController {
     var timer = Timer()
     //プレイヤーの現在地
     var currentTime = 0.0
+    var playorpause = 0
+    
+//    var musicPath = Bundle.main.bundleURL.appendingPathComponent("")
     
     var songImageFileName:String!
     var artistImageFileName:String!
@@ -97,6 +100,13 @@ class MusicViewController: UIViewController {
                 self.setSongImage()
                 self.setArtistImageFile()
                 self.setSongFile()
+                
+                DispatchQueue.main.async {
+                    self.player.currentTime = TimeInterval(self.scrubSlider.value)
+
+                    self.scrubSlider.maximumValue = Float(self.player.duration)
+                    self.timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.updateTime), userInfo: nil, repeats: true)
+                }
                 //failureの時
             case .failure(let err):
                 print(err.localizedDescription)
@@ -165,7 +175,7 @@ class MusicViewController: UIViewController {
             }
         }
     }
-    
+
     func downloadSongFileFromURL(url:URL){
         var downloadTask:URLSessionDownloadTask = URLSession.shared.downloadTask(with: url as URL) { (URL, response, error) in
             self.play(url: URL!)
@@ -175,12 +185,13 @@ class MusicViewController: UIViewController {
     
     func play(url:URL) {   //上でダウンロードした状態のものを再生している
         print("playing \(url)")
-        
+
         do {
             self.player = try AVAudioPlayer(contentsOf: url as URL)
             player.prepareToPlay()
             player.volume = 1.0
-            player.play()
+            
+//            player.play()
         } catch let error as NSError {
             //self.player = nil
             print(error.localizedDescription)
@@ -190,9 +201,20 @@ class MusicViewController: UIViewController {
     }
     
     @IBAction func playButton(_ sender: Any) {
-        scrubSlider.maximumValue = Float(player.duration)
-        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTime), userInfo: nil, repeats: false)
-        setSongFile()
+        switch playorpause {
+//        case -1:
+//            createplayer()
+//            playorpause = 1
+        case 0:
+            playplayer()
+            playorpause = 1
+        case 1:
+            pauseplayer()
+            playorpause = 0
+        default:
+            break
+        }
+        
     }
     
     @IBAction func stopButton(sender: AnyObject) {
@@ -217,6 +239,35 @@ class MusicViewController: UIViewController {
         UIView.animate(withDuration: 1.0, animations: {
             self.scrubSlider.setValue(Float(self.player.currentTime), animated: true)
         })
+    }
+    
+    //プレイヤーを作成する
+//    func createplayer() {
+//        do {
+//            player = try AVAudioPlayer(contentsOf: musicPath, fileTypeHint: nil)
+//            //スライダーの長さを音楽長さに同期する
+//            scrubSlider.maximumValue = Float(player.duration)
+//            timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
+//            player.play()
+//        } catch {
+//            print("エラーが起きました")
+//        }
+//    }
+    
+    //プレイヤーを再生する
+    func playplayer() {
+        player.play()
+        player.currentTime = currentTime
+        if timer.isValid == false {
+            timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
+        }
+    }
+    
+    //プレイヤーを停止する
+    func pauseplayer() {
+        player.pause()
+        currentTime = player.currentTime
+        timer.invalidate()
     }
     
     
